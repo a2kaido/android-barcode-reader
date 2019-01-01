@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // NOTE: delegate the permission handling to generated function
         onRequestPermissionsResult(requestCode, grantResults)
     }
 }
