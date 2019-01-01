@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 
 apply plugin: "kotlin-android"
 
+apply plugin: "kotlin-kapt"
+
 apply plugin: "kotlin-android-extensions"
 
 apply plugin: "androidx.navigation.safeargs"
@@ -46,6 +48,10 @@ dependencies {
     // barcode
     implementation("com.journeyapps:zxing-android-embedded:3.6.0") { transitive = false }.because("barcode reader")
     implementation "com.google.zxing:core:3.3.2"
+
+    def permission_dispatcher_version = "4.3.0"
+    implementation "org.permissionsdispatcher:permissionsdispatcher:${permission_dispatcher_version}"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"
 
     // test
     testImplementation "junit:junit:4.12"
