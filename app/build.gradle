@@ -27,8 +27,16 @@ android {
 }
 
 dependencies {
+    implementation project(":domain")
+
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
+
+    // koin
+    def koin_version = "1.0.2"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // support
     implementation "androidx.appcompat:appcompat:1.1.0-alpha01"
@@ -49,6 +57,7 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:3.6.0") { transitive = false }.because("barcode reader")
     implementation "com.google.zxing:core:3.3.2"
 
+    // permission dispatcher
     def permission_dispatcher_version = "4.3.0"
     implementation "org.permissionsdispatcher:permissionsdispatcher:${permission_dispatcher_version}"
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"

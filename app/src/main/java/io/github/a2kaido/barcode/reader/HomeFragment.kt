@@ -6,11 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.google.zxing.ResultPoint
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import io.github.a2kaido.barcode.reader.mapper.toDomain
 import kotlinx.android.synthetic.main.fragment_home.*
-import permissions.dispatcher.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.OnNeverAskAgain
+import permissions.dispatcher.OnPermissionDenied
+import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
 class HomeFragment : Fragment() {
+
+    private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -19,7 +30,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.barcodeCreated.observe(this, Observer {
+            it?.consume()?.let {
+                // show BottomSheetDialog
+            }
+        })
+
+        decorated_barcode_view.decodeContinuous(object : BarcodeCallback {
+            override fun barcodeResult(result: BarcodeResult?) {
+                result?.let { barcodeResult ->
+                    decorated_barcode_view?.pause()
+                    viewModel.scannedBarcode(barcodeResult.text, barcodeResult.barcodeFormat.toDomain())
+                }
+            }
+
+            override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
+                // nothing to do now.
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
         resumeCameraWithPermissionCheck()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        decorated_barcode_view.pause()
     }
 
     @NeedsPermission(Manifest.permission.CAMERA)
