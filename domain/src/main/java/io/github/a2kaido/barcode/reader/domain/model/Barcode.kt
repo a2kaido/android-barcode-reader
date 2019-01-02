@@ -1,9 +1,10 @@
 package io.github.a2kaido.barcode.reader.domain.model
 
 import android.net.Uri
-import java.util.Date
+import java.io.Serializable
+import java.util.*
 
-sealed class BarcodeData : Barcode
+sealed class BarcodeData : Barcode, Serializable
 
 data class UrlBarcode(
     override val code: String,

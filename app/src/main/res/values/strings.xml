@@ -7,4 +7,7 @@
     <string name="scan">scan</string>
     <string name="history">history</string>
     <string name="settings">settings</string>
+    <string name="url">URL</string>
+    <string name="open_with_browser">ブラウザで開く</string>
+    <string name="cancel">キャンセル</string>
 </resources>

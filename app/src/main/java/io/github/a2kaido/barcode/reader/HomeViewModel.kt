@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 class HomeViewModel(
-    private val coroutineContextPrefix: CoroutineContext = Dispatchers.Main
+        private val coroutineContextPrefix: CoroutineContext = Dispatchers.Main
 ) : ViewModel(), CoroutineScope {
 
     private val job = SupervisorJob()
@@ -23,6 +23,10 @@ class HomeViewModel(
     val barcodeCreated: LiveData<Event<BarcodeData>>
         get() = _barcodeCreated
 
+    private val _dismissBarcodeBottomSheetDialog: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val dismissBarcodeBottomSheetDialog: LiveData<Event<Unit>>
+        get() = _dismissBarcodeBottomSheetDialog
+
     fun scannedBarcode(text: String, format: BarcodeFormat) {
         launch {
             val barcode = withContext(Dispatchers.Default) {
@@ -31,6 +35,10 @@ class HomeViewModel(
 
             _barcodeCreated.value = Event(barcode)
         }
+    }
+
+    fun dismissBarcodeBottomSheetDialog() {
+        _dismissBarcodeBottomSheetDialog.value = Event(Unit)
     }
 
     override fun onCleared() {
