@@ -10,5 +10,11 @@
         android:id="@+id/homeFragment"
         android:name="io.github.a2kaido.barcode.reader.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="io.github.a2kaido.barcode.reader.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history"/>
 </navigation>

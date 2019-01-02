@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">android-barcode-reader</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">barcode capture</string>
+
     <string name="description_permission_required">バーコードのスキャンには権限が必要です。</string>
+
+    <!-- bottom nav menu -->
+    <string name="scan">scan</string>
+    <string name="history">history</string>
+    <string name="settings">settings</string>
 </resources>
