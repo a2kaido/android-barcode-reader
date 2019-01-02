@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import io.github.a2kaido.barcode.reader.mapper.toDomain
+import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import permissions.dispatcher.NeedsPermission
@@ -31,8 +33,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.barcodeCreated.observe(this, Observer {
-            it?.consume()?.let {
-                // show BottomSheetDialog
+            it?.consume()?.let { barcode ->
+                val dialog = BottomSheetDialog(requireContext()).apply {
+                    setContentView(R.layout.bottom_sheet_dialog_barcode)
+                    bottom_sheet_text.text = barcode.code
+                    bottom_sheet_positive_button.setOnClickListener {
+                        dismiss()
+                    }
+                    bottom_sheet_negative_button.setOnClickListener {
+                        dismiss()
+                    }
+                    setOnDismissListener {
+                        viewModel.dismissBarcodeBottomSheetDialog()
+                    }
+                }
+                dialog.show()
             }
         })
 
@@ -48,10 +63,16 @@ class HomeFragment : Fragment() {
                 // nothing to do now.
             }
         })
+
+        viewModel.dismissBarcodeBottomSheetDialog.observe(this, Observer {
+            it?.consume()?.let {
+                resumeCameraWithPermissionCheck()
+            }
+        })
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         resumeCameraWithPermissionCheck()
     }
 
