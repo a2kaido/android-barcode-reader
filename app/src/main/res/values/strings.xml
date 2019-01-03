@@ -9,6 +9,6 @@
     <string name="settings">settings</string>
     <string name="barcode_type_url">URL</string>
     <string name="barcode_type_raw">RAW DATA</string>
-    <string name="open_with_browser">ブラウザで開く</string>
+    <string name="open_in_browser">Open in Browser</string>
     <string name="close">Close</string>
 </resources>

@@ -24,6 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -56,6 +59,10 @@ dependencies {
     // barcode
     implementation("com.journeyapps:zxing-android-embedded:3.6.0") { transitive = false }.because("barcode reader")
     implementation "com.google.zxing:core:3.3.2"
+
+    // groupie
+    implementation "com.xwray:groupie:2.3.0"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.3.0"
 
     // permission dispatcher
     def permission_dispatcher_version = "4.3.0"
