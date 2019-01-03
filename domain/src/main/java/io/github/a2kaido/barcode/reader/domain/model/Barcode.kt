@@ -22,7 +22,11 @@ class BarcodeFactory {
     companion object {
         fun create(text: String, format: BarcodeFormat): BarcodeData = try {
             val uri = Uri.parse(text)
-            UrlBarcode(uri.toString(), format, Date())
+            if (uri.scheme == "http" || uri.scheme == "https") {
+                UrlBarcode(uri.toString(), format, Date())
+            } else {
+                RawDataBarcode(text, format, Date())
+            }
         } catch (e: Exception) {
             RawDataBarcode(text, format, Date())
         }

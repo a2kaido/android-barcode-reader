@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/bottom_sheet_chip"
+        android:id="@+id/bottom_sheet_barcode_type"
         style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,11 +15,30 @@
         android:layout_marginTop="24dp"
         android:clickable="false"
         android:gravity="center"
-        android:text="@string/url"
+        android:text="@string/barcode_type_url"
+        android:textColor="@android:color/white"
+        app:chipBackgroundColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:textEndPadding="16dp"
         app:textStartPadding="16dp" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/bottom_sheet_barcode_format"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        app:chipBackgroundColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@id/bottom_sheet_barcode_type"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textEndPadding="16dp"
+        app:textStartPadding="16dp"
+        tools:text="QR CODE"/>
 
     <TextView
         android:id="@+id/bottom_sheet_text"
@@ -32,7 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_chip"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_barcode_type"
         tools:text="https://www.yahoo.co.jp/" />
 
     <com.google.android.material.button.MaterialButton
