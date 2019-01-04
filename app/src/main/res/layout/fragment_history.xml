@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_filter_list"
         app:layout_anchor="@+id/history_constraint_layout"
         app:layout_anchorGravity="bottom|end" />
 
