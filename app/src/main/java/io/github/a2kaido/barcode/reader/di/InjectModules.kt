@@ -12,9 +12,8 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val myModule = module {
-
     single { Room.databaseBuilder(androidApplication(), BarcodeDatabase::class.java, "barcode").build() }
     single { BarcodeRepository(get()) as BarcodeRepositoryInterface }
-    single { BarcodeUseCase() as BarcodeUseCaseInterface }
+    single { BarcodeUseCase(get()) as BarcodeUseCaseInterface }
     viewModel { HomeViewModel(get()) }
 }
