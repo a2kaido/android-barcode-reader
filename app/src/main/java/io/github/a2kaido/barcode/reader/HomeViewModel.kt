@@ -3,6 +3,7 @@ package io.github.a2kaido.barcode.reader
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.a2kaido.barcode.reader.domain.BarcodeUseCaseInterface
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFactory
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
@@ -11,7 +12,8 @@ import kotlin.coroutines.CoroutineContext
 
 
 class HomeViewModel(
-        private val coroutineContextPrefix: CoroutineContext = Dispatchers.Main
+    private val barcodeUseCase: BarcodeUseCaseInterface,
+    private val coroutineContextPrefix: CoroutineContext = Dispatchers.Main
 ) : ViewModel(), CoroutineScope {
 
     private val job = SupervisorJob()
@@ -33,6 +35,7 @@ class HomeViewModel(
                 BarcodeFactory.create(text, format)
             }
 
+            barcodeUseCase.saveBarcode(barcode)
             _barcodeCreated.value = Event(barcode)
         }
     }
