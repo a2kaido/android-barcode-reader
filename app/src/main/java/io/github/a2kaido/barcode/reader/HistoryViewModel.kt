@@ -22,11 +22,19 @@ class HistoryViewModel(
     val barcodeList: LiveData<List<BarcodeData>>
         get() = _barcodeList
 
+    private val _onClickHistoryItemEvent = MutableLiveData<Event<BarcodeData>>()
+    val onClickHistoryItemEvent: LiveData<Event<BarcodeData>>
+        get() = _onClickHistoryItemEvent
+
     fun fetchBarcodes() {
         launch {
             _barcodeList.value = withContext(Dispatchers.Default) {
                 barcodeUseCase.getBarcodes()
             }
         }
+    }
+
+    fun onClickHistoryItem(barcode: BarcodeData) {
+        _onClickHistoryItemEvent.value = Event(barcode)
     }
 }

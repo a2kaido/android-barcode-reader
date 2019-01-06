@@ -7,7 +7,7 @@ import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
 import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
 import kotlinx.android.synthetic.main.item_barcode.*
 
-class BarcodeItem(private val barcode: BarcodeData) : Item() {
+class BarcodeItem(private val viewModel: HistoryViewModel, private val barcode: BarcodeData) : Item() {
 
     override fun getLayout() = R.layout.item_barcode
 
@@ -22,5 +22,8 @@ class BarcodeItem(private val barcode: BarcodeData) : Item() {
             }
         }
         viewHolder.item_barcode_format.text = barcode.format.name
+        viewHolder.itemView.setOnClickListener {
+            viewModel.onClickHistoryItem(barcode)
+        }
     }
 }
