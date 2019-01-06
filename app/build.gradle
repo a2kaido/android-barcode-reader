@@ -72,7 +72,6 @@ dependencies {
 
     // stetho
     implementation "com.facebook.stetho:stetho:1.5.0"
-    
 
     // test
     testImplementation "junit:junit:4.12"
