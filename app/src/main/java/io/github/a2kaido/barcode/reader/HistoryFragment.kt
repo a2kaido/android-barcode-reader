@@ -1,5 +1,7 @@
 package io.github.a2kaido.barcode.reader
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
+import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
+import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment() {
 
-    val viewModel: HistoryViewModel by viewModel()
+    private val viewModel: HistoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +38,41 @@ class HistoryFragment : Fragment() {
         viewModel.barcodeList.observe(this, Observer { barcodeList ->
             val adapter = GroupAdapter<ViewHolder>()
             adapter.addAll(barcodeList.asSequence().map {
-                BarcodeItem(it)
+                BarcodeItem(viewModel, it)
             }.toList())
             history_recycler_view.adapter = adapter
+        })
+
+        viewModel.onClickHistoryItemEvent.observe(this, Observer {
+            it?.consume()?.let { barcode ->
+                val dialog = BottomSheetDialog(requireContext()).apply {
+                    setContentView(R.layout.bottom_sheet_dialog_barcode)
+                    bottom_sheet_barcode_type.text = when (barcode) {
+                        is UrlBarcode -> getString(R.string.barcode_type_url)
+                        is RawDataBarcode -> getString(R.string.barcode_type_raw)
+                    }
+                    bottom_sheet_barcode_format.text = barcode.format.name
+                    bottom_sheet_text.text = barcode.code
+                    when (barcode) {
+                        is UrlBarcode -> {
+                            bottom_sheet_positive_button.visibility = View.VISIBLE
+                            bottom_sheet_positive_button.setOnClickListener {
+                                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                                    data = Uri.parse(barcode.code)
+                                })
+                                dismiss()
+                            }
+                        }
+                        is RawDataBarcode -> {
+                            bottom_sheet_positive_button.visibility = View.GONE
+                        }
+                    }
+                    bottom_sheet_negative_button.setOnClickListener {
+                        dismiss()
+                    }
+                }
+                dialog.show()
+            }
         })
 
         viewModel.fetchBarcodes()
