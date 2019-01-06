@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,6 +73,19 @@ class HistoryFragment : Fragment() {
                     }
                 }
                 dialog.show()
+            }
+        })
+
+        viewModel.onLongClickHistoryItemEvent.observe(this, Observer {
+            it?.consume()?.let { barcode ->
+                AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.delete_barcode_alert_dialog_message)
+                    .setPositiveButton(R.string.delete) { _, _ ->
+                        viewModel.deleteBarcode(barcode)
+                        viewModel.fetchBarcodes()
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
             }
         })
 

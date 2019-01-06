@@ -10,5 +10,8 @@
     <string name="barcode_type_url">URL</string>
     <string name="barcode_type_raw">RAW DATA</string>
     <string name="open_in_browser">Open in Browser</string>
+    <string name="delete_barcode_alert_dialog_message">Do you want to delete it?</string>
+    <string name="delete">Delete</string>
     <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
 </resources>
