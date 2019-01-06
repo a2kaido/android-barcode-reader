@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
 import java.util.*
 
-@Entity
+@Entity(tableName = "barcodes")
 @TypeConverters(BarcodeFormatConverter::class, BarcodeTypeConverter::class, DateConverter::class)
 data class BarcodeEntity(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
