@@ -9,12 +9,18 @@ class BarcodeUseCase(private val repository: BarcodeRepositoryInterface) : Barco
         repository.saveBarcode(barcode)
     }
 
+    override fun deleteBarcode(barcode: BarcodeData) {
+        repository.deleteBarcode(barcode)
+    }
+
     override fun getBarcodes(): List<BarcodeData> = repository.getBarcodes()
 }
 
 interface BarcodeUseCaseInterface {
 
     fun saveBarcode(barcode: BarcodeData)
+
+    fun deleteBarcode(barcode: BarcodeData)
 
     fun getBarcodes(): List<BarcodeData>
 }

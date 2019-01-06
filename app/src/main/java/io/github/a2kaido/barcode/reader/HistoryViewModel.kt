@@ -26,6 +26,10 @@ class HistoryViewModel(
     val onClickHistoryItemEvent: LiveData<Event<BarcodeData>>
         get() = _onClickHistoryItemEvent
 
+    private val _onLongClickHistoryItemEvent = MutableLiveData<Event<BarcodeData>>()
+    val onLongClickHistoryItemEvent: LiveData<Event<BarcodeData>>
+        get() = _onLongClickHistoryItemEvent
+
     fun fetchBarcodes() {
         launch {
             _barcodeList.value = withContext(Dispatchers.Default) {
@@ -34,7 +38,19 @@ class HistoryViewModel(
         }
     }
 
+    fun deleteBarcode(barcode: BarcodeData) {
+        launch {
+            withContext(Dispatchers.Default) {
+                barcodeUseCase.deleteBarcode(barcode)
+            }
+        }
+    }
+
     fun onClickHistoryItem(barcode: BarcodeData) {
         _onClickHistoryItemEvent.value = Event(barcode)
+    }
+
+    fun onLongClickHistoryItem(barcode: BarcodeData) {
+        _onLongClickHistoryItemEvent.value = Event(barcode)
     }
 }

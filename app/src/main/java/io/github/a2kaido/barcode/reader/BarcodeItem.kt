@@ -25,5 +25,9 @@ class BarcodeItem(private val viewModel: HistoryViewModel, private val barcode: 
         viewHolder.itemView.setOnClickListener {
             viewModel.onClickHistoryItem(barcode)
         }
+        viewHolder.itemView.setOnLongClickListener {
+            viewModel.onLongClickHistoryItem(barcode)
+            true
+        }
     }
 }
