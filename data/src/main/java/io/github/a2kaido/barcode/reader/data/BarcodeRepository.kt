@@ -23,4 +23,15 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
         )
         database.barcodeDao.insertBarcode(barcodeEntity)
     }
+
+    override fun getBarcodes(): List<BarcodeData> = database.barcodeDao.selectBarcodes().asSequence().map {
+        when (it.type) {
+            BarcodeType.URL -> {
+                UrlBarcode(it.code, it.format, it.date)
+            }
+            BarcodeType.RAW_DATA -> {
+                RawDataBarcode(it.code, it.format, it.date)
+            }
+        }
+    }.toList()
 }
