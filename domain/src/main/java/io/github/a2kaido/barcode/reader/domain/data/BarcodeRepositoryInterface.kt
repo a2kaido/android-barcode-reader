@@ -6,5 +6,7 @@ interface BarcodeRepositoryInterface {
 
     fun saveBarcode(barcode: BarcodeData)
 
+    fun deleteBarcode(barcode: BarcodeData)
+
     fun getBarcodes(): List<BarcodeData>
 }
