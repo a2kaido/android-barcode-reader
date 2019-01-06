@@ -35,7 +35,10 @@ class HomeViewModel(
                 BarcodeFactory.create(text, format)
             }
 
-            barcodeUseCase.saveBarcode(barcode)
+            withContext(Dispatchers.Default) {
+                barcodeUseCase.saveBarcode(barcode)
+            }
+
             _barcodeCreated.value = Event(barcode)
         }
     }
