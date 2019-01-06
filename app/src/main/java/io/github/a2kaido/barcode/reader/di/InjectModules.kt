@@ -1,6 +1,7 @@
 package io.github.a2kaido.barcode.reader.di
 
 import androidx.room.Room
+import io.github.a2kaido.barcode.reader.HistoryViewModel
 import io.github.a2kaido.barcode.reader.HomeViewModel
 import io.github.a2kaido.barcode.reader.data.BarcodeRepository
 import io.github.a2kaido.barcode.reader.data.room.BarcodeDatabase
@@ -16,4 +17,5 @@ val myModule = module {
     single { BarcodeRepository(get()) as BarcodeRepositoryInterface }
     single { BarcodeUseCase(get()) as BarcodeUseCaseInterface }
     viewModel { HomeViewModel(get()) }
+    viewModel { HistoryViewModel(get()) }
 }
