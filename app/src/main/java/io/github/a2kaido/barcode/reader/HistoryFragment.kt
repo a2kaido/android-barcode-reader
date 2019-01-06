@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
-import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
 import kotlinx.android.synthetic.main.fragment_history.*
-import java.util.Date
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment() {
+
+    val viewModel: HistoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,16 +27,16 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = GroupAdapter<ViewHolder>()
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        adapter.add(BarcodeItem(UrlBarcode("https://www.example.com", BarcodeFormat.CODE_128, Date())))
-        history_recycler_view.adapter = adapter
         history_recycler_view.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        viewModel.barcodeList.observe(this, Observer { barcodeList ->
+            val adapter = GroupAdapter<ViewHolder>()
+            adapter.addAll(barcodeList.asSequence().map {
+                BarcodeItem(it)
+            }.toList())
+            history_recycler_view.adapter = adapter
+        })
+
+        viewModel.fetchBarcodes()
     }
 }
