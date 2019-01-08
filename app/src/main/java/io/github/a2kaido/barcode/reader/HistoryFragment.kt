@@ -87,5 +87,11 @@ class HistoryFragment : Fragment() {
                     .show()
             }
         })
+
+        history_fab.setOnClickListener {
+            BottomSheetDialog(requireContext()).apply {
+                setContentView(R.layout.bottom_sheet_dialog_filter)
+            }.show()
+        }
     }
 }
