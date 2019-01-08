@@ -14,4 +14,6 @@
     <string name="delete">Delete</string>
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
+    <string name="qr_code">QR CODE</string>
+    <string name="code_128">CODE 128</string>
 </resources>
