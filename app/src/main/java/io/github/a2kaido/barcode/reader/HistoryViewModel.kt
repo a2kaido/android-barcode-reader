@@ -18,9 +18,14 @@ class HistoryViewModel(
     override val coroutineContext: CoroutineContext
         get() = coroutineContextPrefix + job
 
-    private val _barcodeList = MutableLiveData<List<BarcodeData>>()
-    val barcodeList: LiveData<List<BarcodeData>>
-        get() = _barcodeList
+    val barcodeList: LiveData<List<BarcodeData>> by lazy {
+        runBlocking {
+            val barcodeList = withContext(Dispatchers.Default) {
+                barcodeUseCase.getBarcodes()
+            }
+            barcodeList
+        }
+    }
 
     private val _onClickHistoryItemEvent = MutableLiveData<Event<BarcodeData>>()
     val onClickHistoryItemEvent: LiveData<Event<BarcodeData>>
@@ -29,14 +34,6 @@ class HistoryViewModel(
     private val _onLongClickHistoryItemEvent = MutableLiveData<Event<BarcodeData>>()
     val onLongClickHistoryItemEvent: LiveData<Event<BarcodeData>>
         get() = _onLongClickHistoryItemEvent
-
-    fun fetchBarcodes() {
-        launch {
-            _barcodeList.value = withContext(Dispatchers.Default) {
-                barcodeUseCase.getBarcodes()
-            }
-        }
-    }
 
     fun deleteBarcode(barcode: BarcodeData) {
         launch {

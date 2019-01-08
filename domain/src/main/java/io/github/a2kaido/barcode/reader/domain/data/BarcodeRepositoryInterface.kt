@@ -1,5 +1,6 @@
 package io.github.a2kaido.barcode.reader.domain.data
 
+import androidx.lifecycle.LiveData
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 
 interface BarcodeRepositoryInterface {
@@ -8,5 +9,5 @@ interface BarcodeRepositoryInterface {
 
     fun deleteBarcode(barcode: BarcodeData)
 
-    fun getBarcodes(): List<BarcodeData>
+    fun getBarcodes(): LiveData<List<BarcodeData>>
 }

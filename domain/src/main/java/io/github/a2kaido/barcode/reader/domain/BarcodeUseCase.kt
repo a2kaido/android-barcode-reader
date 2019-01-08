@@ -1,5 +1,6 @@
 package io.github.a2kaido.barcode.reader.domain
 
+import androidx.lifecycle.LiveData
 import io.github.a2kaido.barcode.reader.domain.data.BarcodeRepositoryInterface
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 
@@ -13,7 +14,7 @@ class BarcodeUseCase(private val repository: BarcodeRepositoryInterface) : Barco
         repository.deleteBarcode(barcode)
     }
 
-    override fun getBarcodes(): List<BarcodeData> = repository.getBarcodes()
+    override fun getBarcodes(): LiveData<List<BarcodeData>> = repository.getBarcodes()
 }
 
 interface BarcodeUseCaseInterface {
@@ -22,5 +23,5 @@ interface BarcodeUseCaseInterface {
 
     fun deleteBarcode(barcode: BarcodeData)
 
-    fun getBarcodes(): List<BarcodeData>
+    fun getBarcodes(): LiveData<List<BarcodeData>>
 }
