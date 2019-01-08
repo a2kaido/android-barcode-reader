@@ -82,13 +82,10 @@ class HistoryFragment : Fragment() {
                     .setMessage(R.string.delete_barcode_alert_dialog_message)
                     .setPositiveButton(R.string.delete) { _, _ ->
                         viewModel.deleteBarcode(barcode)
-                        viewModel.fetchBarcodes()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                     .show()
             }
         })
-
-        viewModel.fetchBarcodes()
     }
 }

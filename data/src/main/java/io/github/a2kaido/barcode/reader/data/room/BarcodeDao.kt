@@ -1,5 +1,6 @@
 package io.github.a2kaido.barcode.reader.data.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -12,5 +13,5 @@ interface BarcodeDao {
     fun deleteBarcode(barcode: BarcodeEntity)
 
     @Query("SELECT * FROM barcodes")
-    fun selectBarcodes(): List<BarcodeEntity>
+    fun selectBarcodes(): LiveData<List<BarcodeEntity>>
 }
