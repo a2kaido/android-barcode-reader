@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_settings -> {
+                    findNavController(R.id.main_fragment).navigate(R.id.settingsFragment)
                     true
                 }
                 else -> {

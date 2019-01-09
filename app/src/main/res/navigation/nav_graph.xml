@@ -17,4 +17,8 @@
         android:name="io.github.a2kaido.barcode.reader.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history"/>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="io.github.a2kaido.barcode.reader.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
