@@ -16,4 +16,5 @@
     <string name="cancel">Cancel</string>
     <string name="qr_code">QR CODE</string>
     <string name="code_128">CODE 128</string>
+    <string name="oss_license">Open Source Software License</string>
 </resources>
