@@ -8,6 +8,8 @@ apply plugin: "kotlin-android-extensions"
 
 apply plugin: "androidx.navigation.safeargs"
 
+apply plugin: 'com.google.gms.oss.licenses.plugin'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -72,6 +74,8 @@ dependencies {
 
     // stetho
     implementation "com.facebook.stetho:stetho:1.5.0"
+
+    implementation "com.google.android.gms:play-services-oss-licenses:16.0.1"
 
     // test
     testImplementation "junit:junit:4.12"
