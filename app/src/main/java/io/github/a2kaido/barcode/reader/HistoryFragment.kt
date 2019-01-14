@@ -16,6 +16,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
 import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
+import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,6 +52,7 @@ class HistoryFragment : Fragment() {
                     bottom_sheet_barcode_type.text = when (barcode) {
                         is UrlBarcode -> getString(R.string.barcode_type_url)
                         is RawDataBarcode -> getString(R.string.barcode_type_raw)
+                        is WifiBarcode -> getString(R.string.barcode_type_wifi)
                     }
                     bottom_sheet_barcode_format.text = barcode.format.name
                     bottom_sheet_text.text = barcode.code
@@ -65,6 +67,9 @@ class HistoryFragment : Fragment() {
                             }
                         }
                         is RawDataBarcode -> {
+                            bottom_sheet_positive_button.visibility = View.GONE
+                        }
+                        is WifiBarcode -> {
                             bottom_sheet_positive_button.visibility = View.GONE
                         }
                     }
