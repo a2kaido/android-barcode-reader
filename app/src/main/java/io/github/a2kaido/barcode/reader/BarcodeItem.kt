@@ -5,6 +5,7 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
 import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
+import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 import kotlinx.android.synthetic.main.item_barcode.*
 
 class BarcodeItem(private val viewModel: HistoryViewModel, private val barcode: BarcodeData) : Item() {
@@ -19,6 +20,9 @@ class BarcodeItem(private val viewModel: HistoryViewModel, private val barcode: 
             }
             is RawDataBarcode -> {
                 viewHolder.itemView.context.getString(R.string.barcode_type_raw)
+            }
+            is WifiBarcode -> {
+                viewHolder.itemView.context.getString(R.string.barcode_type_wifi)
             }
         }
         viewHolder.item_barcode_format.text = barcode.format.name

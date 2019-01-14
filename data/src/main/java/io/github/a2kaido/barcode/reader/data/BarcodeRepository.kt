@@ -9,16 +9,17 @@ import io.github.a2kaido.barcode.reader.domain.data.BarcodeRepositoryInterface
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
 import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
+import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 
 class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeRepositoryInterface {
 
     override fun saveBarcode(barcode: BarcodeData) {
         val barcodeEntity = BarcodeEntity(
             code = barcode.code, format = barcode.format, date = barcode.date, type = when (barcode) {
-                is UrlBarcode -> BarcodeType.URL
-                is RawDataBarcode -> BarcodeType.RAW_DATA
-            }
-        )
+            is UrlBarcode -> BarcodeType.URL
+            is RawDataBarcode -> BarcodeType.RAW_DATA
+            is WifiBarcode -> BarcodeType.WIFI
+        })
         database.barcodeDao.insertBarcode(barcodeEntity)
     }
 
@@ -26,10 +27,10 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
         database.barcodeDao.deleteBarcode(
             BarcodeEntity(
                 barcode.id, barcode.code, barcode.format, barcode.date, when (barcode) {
-                    is UrlBarcode -> BarcodeType.URL
-                    is RawDataBarcode -> BarcodeType.RAW_DATA
-                }
-            )
+                is UrlBarcode -> BarcodeType.URL
+                is RawDataBarcode -> BarcodeType.RAW_DATA
+                is WifiBarcode -> BarcodeType.WIFI
+            })
         )
     }
 
@@ -39,6 +40,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
                 when (it.type) {
                     BarcodeType.URL -> UrlBarcode(it.id, it.code, it.format, it.date)
                     BarcodeType.RAW_DATA -> RawDataBarcode(it.id, it.code, it.format, it.date)
+                    BarcodeType.WIFI -> WifiBarcode(it.id, it.code, it.format, it.date)
                 }
             }.toList()
         }

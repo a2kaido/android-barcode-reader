@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "barcodes")
 @TypeConverters(BarcodeFormatConverter::class, BarcodeTypeConverter::class, DateConverter::class)
@@ -17,5 +17,5 @@ data class BarcodeEntity(
 )
 
 enum class BarcodeType {
-    URL, RAW_DATA
+    URL, RAW_DATA, WIFI
 }
