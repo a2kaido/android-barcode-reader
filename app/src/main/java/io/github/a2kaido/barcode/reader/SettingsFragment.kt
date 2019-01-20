@@ -18,6 +18,8 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().title = getString(R.string.settings_title)
+
         oss_license.setOnClickListener {
             startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
                 putExtra("title", getString(R.string.oss_license))
