@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 import io.github.a2kaido.barcode.reader.mapper.toDomain
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnNeverAskAgain
@@ -39,6 +41,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().title = getString(R.string.scan_title)
+
+        open_settings.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+            }
+            startActivity(intent)
+        }
 
         viewModel.barcodeCreated.observe(this, Observer {
             it?.consume()?.let { barcode ->
@@ -113,19 +123,19 @@ class HomeFragment : Fragment() {
     fun resumeCamera() {
         decorated_barcode_view.visibility = View.VISIBLE
         decorated_barcode_view.resume()
-        notification_text.visibility = View.GONE
+        no_camera_permission.visibility = View.GONE
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
     fun onCameraDenied() {
         decorated_barcode_view.visibility = View.GONE
-        notification_text.visibility = View.VISIBLE
+        no_camera_permission.visibility = View.VISIBLE
     }
 
     @OnNeverAskAgain(Manifest.permission.CAMERA)
     fun onCameraNeverAskAgain() {
         decorated_barcode_view.visibility = View.GONE
-        notification_text.visibility = View.VISIBLE
+        no_camera_permission.visibility = View.VISIBLE
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
