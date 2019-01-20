@@ -38,6 +38,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().title = getString(R.string.scan_title)
+
         viewModel.barcodeCreated.observe(this, Observer {
             it?.consume()?.let { barcode ->
                 val dialog = BottomSheetDialog(requireContext()).apply {

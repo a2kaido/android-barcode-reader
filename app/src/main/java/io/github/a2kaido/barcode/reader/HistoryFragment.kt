@@ -35,9 +35,19 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().title = getString(R.string.scan_history_title)
+
         history_recycler_view.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         viewModel.barcodeList.observe(this, Observer { barcodeList ->
+            if (barcodeList.isEmpty()) {
+                history_recycler_view.visibility = View.GONE
+                empty_view.visibility = View.VISIBLE
+                return@Observer
+            }
+
+            history_recycler_view.visibility = View.VISIBLE
+            empty_view.visibility = View.GONE
             val adapter = GroupAdapter<ViewHolder>()
             adapter.addAll(barcodeList.asSequence().map {
                 BarcodeItem(viewModel, it)
@@ -93,10 +103,10 @@ class HistoryFragment : Fragment() {
             }
         })
 
-        history_fab.setOnClickListener {
-            BottomSheetDialog(requireContext()).apply {
-                setContentView(R.layout.bottom_sheet_dialog_filter)
-            }.show()
-        }
+//        history_fab.setOnClickListener {
+//            BottomSheetDialog(requireContext()).apply {
+//                setContentView(R.layout.bottom_sheet_dialog_filter)
+//            }.show()
+//        }
     }
 }
