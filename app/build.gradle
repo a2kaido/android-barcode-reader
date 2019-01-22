@@ -16,7 +16,7 @@ android {
         applicationId "io.github.a2kaido.barcode.reader"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10000
+        versionCode 10001
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "ja", "en"
