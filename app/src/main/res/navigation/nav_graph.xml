@@ -21,4 +21,8 @@
         android:id="@+id/settingsFragment"
         android:name="io.github.a2kaido.barcode.reader.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/qrCodeFactoryFragment"
+        android:name="io.github.a2kaido.barcode.reader.QrCodeFactoryFragment"
+        android:label="QrCodeFactoryFragment" />
 </navigation>

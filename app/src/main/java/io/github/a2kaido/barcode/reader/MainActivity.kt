@@ -1,5 +1,6 @@
 package io.github.a2kaido.barcode.reader
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -14,11 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.main_fragment)
         bottom_nav.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, arguments ->
-            println(destination)
-            println(arguments)
-        }
 
         bottom_nav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -38,6 +34,10 @@ class MainActivity : AppCompatActivity() {
                     false
                 }
             }
+        }
+
+        if (intent?.action == Intent.ACTION_SEND) {
+            findNavController(R.id.main_fragment).navigate(R.id.qrCodeFactoryFragment)
         }
     }
 }
