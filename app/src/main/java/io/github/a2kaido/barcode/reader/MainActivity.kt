@@ -37,7 +37,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (intent?.action == Intent.ACTION_SEND) {
-            findNavController(R.id.main_fragment).navigate(R.id.qrCodeFactoryFragment)
+            val direction = QrCodeFactoryFragmentDirections.actionGlobalQrCodeFactoryFragment(
+                intent?.clipData?.getItemAt(0)?.text?.toString() ?: ""
+            )
+            findNavController(R.id.main_fragment).navigate(direction)
         }
     }
 }
