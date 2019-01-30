@@ -24,5 +24,12 @@
     <fragment
         android:id="@+id/qrCodeFactoryFragment"
         android:name="io.github.a2kaido.barcode.reader.QrCodeFactoryFragment"
-        android:label="QrCodeFactoryFragment" />
+        android:label="QrCodeFactoryFragment">
+        <argument
+            android:name="value"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_qrCodeFactoryFragment"
+        app:destination="@id/qrCodeFactoryFragment" />
 </navigation>
