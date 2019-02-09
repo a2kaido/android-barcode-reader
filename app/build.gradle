@@ -57,11 +57,11 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // support
-    implementation "androidx.appcompat:appcompat:1.1.0-alpha01"
+    implementation "androidx.appcompat:appcompat:1.1.0-alpha02"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
 
     // nav
-    def nav_version = "1.0.0-alpha11"
+    def nav_version = "1.0.0-beta01"
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
 
