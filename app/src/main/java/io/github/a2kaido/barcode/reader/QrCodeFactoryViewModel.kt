@@ -9,4 +9,8 @@ class QrCodeFactoryViewModel : ViewModel() {
     private val _barcode: MutableLiveData<String> = MutableLiveData()
     val barcode: LiveData<String>
         get() = _barcode
+
+    fun setBarcode(code: String) {
+        _barcode.value = code
+    }
 }
