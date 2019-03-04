@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="io.github.a2kaido.barcode.reader.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home"></fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="io.github.a2kaido.barcode.reader.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history"/>
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="io.github.a2kaido.barcode.reader.SettingsFragment"
