@@ -36,11 +36,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (intent?.action == Intent.ACTION_SEND) {
-            val direction = QrCodeFactoryFragmentDirections.actionGlobalQrCodeFactoryFragment(
-                intent?.clipData?.getItemAt(0)?.text?.toString() ?: ""
-            )
-            findNavController(R.id.main_fragment).navigate(direction)
+        when (intent?.action) {
+            Intent.ACTION_SEND -> {
+                val direction = QrCodeFactoryFragmentDirections.actionGlobalQrCodeFactoryFragment(
+                    intent?.clipData?.getItemAt(0)?.text?.toString() ?: ""
+                )
+                findNavController(R.id.main_fragment).navigate(direction)
+            }
+            Intent.ACTION_ASSIST -> {
+                findNavController(R.id.main_fragment).navigate(R.id.homeFragment)
+            }
         }
     }
 }
