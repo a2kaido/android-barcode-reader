@@ -10,14 +10,18 @@ apply plugin: "androidx.navigation.safeargs"
 
 apply plugin: 'com.google.gms.oss.licenses.plugin'
 
+def major = 1
+def minor = 0
+def revision = 2
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "io.github.a2kaido.barcode.reader"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10001
-        versionName "1.0.0"
+        versionCode major * 10000 + minor * 100 + revision
+        versionName "$major.$minor.$revision"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "ja", "en"
     }
