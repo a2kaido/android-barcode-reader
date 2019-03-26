@@ -12,6 +12,6 @@ interface BarcodeDao {
     @Delete
     fun deleteBarcode(barcode: BarcodeEntity)
 
-    @Query("SELECT * FROM barcodes")
+    @Query("SELECT * FROM barcodes ORDER BY date DESC")
     fun selectBarcodes(): LiveData<List<BarcodeEntity>>
 }

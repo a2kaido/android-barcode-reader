@@ -12,7 +12,7 @@ apply plugin: 'com.google.gms.oss.licenses.plugin'
 
 def major = 1
 def minor = 0
-def revision = 2
+def revision = 3
 
 android {
     compileSdkVersion 28
@@ -65,16 +65,16 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // support
-    implementation "androidx.appcompat:appcompat:1.1.0-alpha02"
+    implementation "androidx.appcompat:appcompat:1.1.0-alpha03"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
 
     // nav
-    def nav_version = "1.0.0-rc02"
+    def nav_version = "1.0.0"
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
 
     // room
-    def room_version = "2.1.0-alpha04"
+    def room_version = "2.1.0-alpha06"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-coroutines:$room_version"
