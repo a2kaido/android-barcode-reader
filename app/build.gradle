@@ -12,7 +12,7 @@ apply plugin: 'com.google.gms.oss.licenses.plugin'
 
 def major = 1
 def minor = 0
-def revision = 2
+def revision = 3
 
 android {
     compileSdkVersion 28
