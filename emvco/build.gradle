@@ -1,0 +1,9 @@
+apply plugin: 'java-library'
+apply plugin: "org.jetbrains.kotlin.jvm"
+
+dependencies {
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation "junit:junit:4.12"
+}

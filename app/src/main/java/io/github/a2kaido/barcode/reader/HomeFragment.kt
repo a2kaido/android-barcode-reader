@@ -15,10 +15,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
+import io.github.a2kaido.barcode.reader.domain.model.EMVCoBarcode
 import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
 import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
 import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 import io.github.a2kaido.barcode.reader.mapper.toDomain
+import io.github.a2kaido.emvco.parseEMVCoText
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
@@ -58,6 +60,7 @@ class HomeFragment : Fragment() {
                         is UrlBarcode -> getString(R.string.barcode_type_url)
                         is RawDataBarcode -> getString(R.string.barcode_type_raw)
                         is WifiBarcode -> getString(R.string.barcode_type_wifi)
+                        is EMVCoBarcode -> getString(R.string.barcode_type_emvco)
                     }
                     bottom_sheet_barcode_format.text = barcode.format.name
                     bottom_sheet_text.text = barcode.code
@@ -76,6 +79,10 @@ class HomeFragment : Fragment() {
                         }
                         is WifiBarcode -> {
                             bottom_sheet_positive_button.visibility = View.GONE
+                        }
+                        is EMVCoBarcode -> {
+                            bottom_sheet_positive_button.visibility = View.GONE
+                            bottom_sheet_text.text = parseEMVCoText(barcode.code)
                         }
                     }
                     bottom_sheet_negative_button.setOnClickListener {

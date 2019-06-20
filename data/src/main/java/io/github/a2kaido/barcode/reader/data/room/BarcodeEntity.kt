@@ -17,5 +17,5 @@ data class BarcodeEntity(
 )
 
 enum class BarcodeType {
-    URL, RAW_DATA, WIFI
+    URL, RAW_DATA, WIFI, EMVCo
 }

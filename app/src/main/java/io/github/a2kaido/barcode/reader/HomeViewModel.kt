@@ -10,7 +10,6 @@ import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-
 class HomeViewModel(
     private val barcodeUseCase: BarcodeUseCaseInterface,
     private val coroutineContextPrefix: CoroutineContext = Dispatchers.Main
@@ -49,6 +48,6 @@ class HomeViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        job.cancelChildren()
+        job.cancel()
     }
 }

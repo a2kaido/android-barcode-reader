@@ -2,7 +2,7 @@ package io.github.a2kaido.barcode.reader.data.room
 
 import androidx.room.TypeConverter
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFormat
-import java.util.Date
+import java.util.*
 
 class BarcodeTypeConverter {
 
@@ -11,6 +11,7 @@ class BarcodeTypeConverter {
         BarcodeType.URL.ordinal -> BarcodeType.URL
         BarcodeType.RAW_DATA.ordinal -> BarcodeType.RAW_DATA
         BarcodeType.WIFI.ordinal -> BarcodeType.WIFI
+        BarcodeType.EMVCo.ordinal -> BarcodeType.EMVCo
         else -> BarcodeType.RAW_DATA
     }
 
@@ -19,6 +20,7 @@ class BarcodeTypeConverter {
         BarcodeType.URL -> BarcodeType.URL.ordinal
         BarcodeType.RAW_DATA -> BarcodeType.RAW_DATA.ordinal
         BarcodeType.WIFI -> BarcodeType.WIFI.ordinal
+        BarcodeType.EMVCo -> BarcodeType.EMVCo.ordinal
     }
 }
 
