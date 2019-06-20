@@ -6,20 +6,22 @@ import io.github.a2kaido.barcode.reader.data.room.BarcodeDatabase
 import io.github.a2kaido.barcode.reader.data.room.BarcodeEntity
 import io.github.a2kaido.barcode.reader.data.room.BarcodeType
 import io.github.a2kaido.barcode.reader.domain.data.BarcodeRepositoryInterface
-import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
-import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
-import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
-import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
+import io.github.a2kaido.barcode.reader.domain.model.*
 
 class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeRepositoryInterface {
 
     override fun saveBarcode(barcode: BarcodeData) {
         val barcodeEntity = BarcodeEntity(
-            code = barcode.code, format = barcode.format, date = barcode.date, type = when (barcode) {
-            is UrlBarcode -> BarcodeType.URL
-            is RawDataBarcode -> BarcodeType.RAW_DATA
-            is WifiBarcode -> BarcodeType.WIFI
-        })
+            code = barcode.code,
+            format = barcode.format,
+            date = barcode.date,
+            type = when (barcode) {
+                is UrlBarcode -> BarcodeType.URL
+                is RawDataBarcode -> BarcodeType.RAW_DATA
+                is WifiBarcode -> BarcodeType.WIFI
+                is EMVCoBarcode -> BarcodeType.EMVCo
+            }
+        )
         database.barcodeDao.insertBarcode(barcodeEntity)
     }
 
@@ -27,10 +29,12 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
         database.barcodeDao.deleteBarcode(
             BarcodeEntity(
                 barcode.id, barcode.code, barcode.format, barcode.date, when (barcode) {
-                is UrlBarcode -> BarcodeType.URL
-                is RawDataBarcode -> BarcodeType.RAW_DATA
-                is WifiBarcode -> BarcodeType.WIFI
-            })
+                    is UrlBarcode -> BarcodeType.URL
+                    is RawDataBarcode -> BarcodeType.RAW_DATA
+                    is WifiBarcode -> BarcodeType.WIFI
+                    is EMVCoBarcode -> BarcodeType.EMVCo
+                }
+            )
         )
     }
 
@@ -41,6 +45,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
                     BarcodeType.URL -> UrlBarcode(it.id, it.code, it.format, it.date)
                     BarcodeType.RAW_DATA -> RawDataBarcode(it.id, it.code, it.format, it.date)
                     BarcodeType.WIFI -> WifiBarcode(it.id, it.code, it.format, it.date)
+                    BarcodeType.EMVCo -> EMVCoBarcode(it.id, it.code, it.format, it.date)
                 }
             }.toList()
         }
