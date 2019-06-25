@@ -29,8 +29,9 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val barcode = requireNotNull(arguments?.getSerializable(Args.BARCODE.name) as? BarcodeData)
 
-        val dialog = BottomSheetDialog(requireContext()).apply {
+        return BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.bottom_sheet_dialog_barcode)
+
             bottom_sheet_barcode_type.text = when (barcode) {
                 is UrlBarcode -> getString(R.string.barcode_type_url)
                 is RawDataBarcode -> getString(R.string.barcode_type_raw)
@@ -60,11 +61,16 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     bottom_sheet_text.text = parseEMVCoText(barcode.code)
                 }
             }
+            share.setOnClickListener {
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(Intent.EXTRA_TEXT, bottom_sheet_text.text.toString())
+                sendIntent.type = "text/plain"
+                startActivity(Intent.createChooser(sendIntent, "Share Code"))
+            }
             bottom_sheet_negative_button.setOnClickListener {
                 dismiss()
             }
         }
-
-        return dialog
     }
 }

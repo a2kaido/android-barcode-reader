@@ -9,6 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_sheet_barcode_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bottom_sheet_barcode_type"
+            app:srcCompat="@drawable/ic_share" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/bottom_sheet_barcode_type"
             style="@style/Widget.MaterialComponents.Chip.Choice"
