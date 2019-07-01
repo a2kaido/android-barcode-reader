@@ -44,12 +44,15 @@ private fun cutEMVCoItem(str: String, isChild: Boolean): Pair<EMVCoItemInterface
     }
 
     if (id.toInt() in 2..51 || id == "62" || id == "64") {
-        return ParentEMVCoItem(
-            id,
-            length,
-            payload,
-            parseEMVCo(payload, true)
-        ) to str.substring(payloadLength + 4)
+        try {
+            return ParentEMVCoItem(
+                id,
+                length,
+                payload,
+                parseEMVCo(payload, true)
+            ) to str.substring(payloadLength + 4)
+        } catch (e: Exception) {
+        }
     }
 
     return EMVCoItem(

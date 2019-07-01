@@ -18,10 +18,7 @@ import io.github.a2kaido.barcode.reader.mapper.toDomain
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import permissions.dispatcher.NeedsPermission
-import permissions.dispatcher.OnNeverAskAgain
-import permissions.dispatcher.OnPermissionDenied
-import permissions.dispatcher.RuntimePermissions
+import permissions.dispatcher.*
 
 @RuntimePermissions
 class HomeFragment : Fragment() {
@@ -74,6 +71,13 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         resumeCameraWithPermissionCheck()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (PermissionUtils.hasSelfPermissions(requireActivity(), "android.permission.CAMERA")) {
+            resumeCamera()
+        }
     }
 
     override fun onPause() {
