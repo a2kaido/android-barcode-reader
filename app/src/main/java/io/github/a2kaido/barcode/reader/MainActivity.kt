@@ -20,15 +20,27 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_scan -> {
-                    findNavController(R.id.main_fragment).navigate(R.id.homeFragment)
+                    navController.navigate(
+                        R.id.homeFragment,
+                        null,
+                        NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
+                    )
                     true
                 }
                 R.id.menu_history -> {
-                    findNavController(R.id.main_fragment).navigate(R.id.historyFragment)
+                    navController.navigate(
+                        R.id.historyFragment,
+                        null,
+                        NavOptions.Builder().setPopUpTo(R.id.historyFragment, true).build()
+                    )
                     true
                 }
                 R.id.menu_settings -> {
-                    findNavController(R.id.main_fragment).navigate(R.id.settingsFragment)
+                    navController.navigate(
+                        R.id.settingsFragment,
+                        null,
+                        NavOptions.Builder().setPopUpTo(R.id.settingsFragment, true).build()
+                    )
                     true
                 }
                 else -> {
@@ -42,10 +54,10 @@ class MainActivity : AppCompatActivity() {
                 val direction = QrCodeFactoryFragmentDirections.actionGlobalQrCodeFactoryFragment(
                     intent?.clipData?.getItemAt(0)?.text?.toString() ?: ""
                 )
-                findNavController(R.id.main_fragment).navigate(direction)
+                navController.navigate(direction)
             }
             Intent.ACTION_ASSIST -> {
-                findNavController(R.id.main_fragment).navigate(
+                navController.navigate(
                     R.id.homeFragment,
                     null,
                     NavOptions.Builder().setLaunchSingleTop(true).build()
