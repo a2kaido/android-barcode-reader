@@ -25,7 +25,11 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -44,7 +48,8 @@ class HomeFragment : Fragment() {
 
         viewModel.barcodeCreated.observe(this, Observer {
             it?.consume()?.let { barcode ->
-                BarcodeBottomSheetDialogFragment.newInstance(barcode).show(requireFragmentManager(), null)
+                BarcodeBottomSheetDialogFragment.newInstance(barcode)
+                    .show(requireFragmentManager(), null)
             }
         })
 
@@ -52,7 +57,10 @@ class HomeFragment : Fragment() {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let { barcodeResult ->
                     decorated_barcode_view?.pause()
-                    viewModel.scannedBarcode(barcodeResult.text, barcodeResult.barcodeFormat.toDomain())
+                    viewModel.scannedBarcode(
+                        barcodeResult.text,
+                        barcodeResult.barcodeFormat.toDomain()
+                    )
                 }
             }
 
@@ -104,7 +112,11 @@ class HomeFragment : Fragment() {
         no_camera_permission.visibility = View.VISIBLE
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResult(requestCode, grantResults)
     }

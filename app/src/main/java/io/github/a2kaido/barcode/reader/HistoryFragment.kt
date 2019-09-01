@@ -31,7 +31,8 @@ class HistoryFragment : Fragment() {
 
         requireActivity().title = getString(R.string.scan_history_title)
 
-        history_recycler_view.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        history_recycler_view.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         viewModel.barcodeList.observeNonNull(this) { barcodeList ->
             if (barcodeList.isEmpty()) {
@@ -51,7 +52,8 @@ class HistoryFragment : Fragment() {
 
         viewModel.onClickHistoryItemEvent.observeNonNull(this) {
             it.consume()?.let { barcode ->
-                BarcodeBottomSheetDialogFragment.newInstance(barcode).show(requireFragmentManager(), null)
+                BarcodeBottomSheetDialogFragment.newInstance(barcode)
+                    .show(requireFragmentManager(), null)
             }
         }
 
