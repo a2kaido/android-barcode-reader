@@ -82,7 +82,7 @@ dependencies {
 
     // barcode
     implementation("com.journeyapps:zxing-android-embedded:3.6.0") { transitive = false }.because("barcode reader")
-    implementation "com.google.zxing:core:3.3.2"
+    implementation 'com.google.zxing:core:3.4.0'
 
     // groupie
     implementation "com.xwray:groupie:2.3.0"
@@ -94,7 +94,7 @@ dependencies {
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"
 
     // stetho
-    implementation "com.facebook.stetho:stetho:1.5.0"
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 
     implementation "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
