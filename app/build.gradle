@@ -12,14 +12,14 @@ apply plugin: 'com.google.gms.oss.licenses.plugin'
 
 def major = 1
 def minor = 1
-def revision = 4
+def revision = 5
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "io.github.a2kaido.barcode.reader"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode major * 10000 + minor * 100 + revision
         versionName "$major.$minor.$revision"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -66,7 +66,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // support
-    implementation "androidx.appcompat:appcompat:1.1.0-beta01"
+    implementation "androidx.appcompat:appcompat:1.1.0-rc01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
 
     // nav
@@ -82,7 +82,7 @@ dependencies {
 
     // barcode
     implementation("com.journeyapps:zxing-android-embedded:3.6.0") { transitive = false }.because("barcode reader")
-    implementation "com.google.zxing:core:3.3.2"
+    implementation 'com.google.zxing:core:3.4.0'
 
     // groupie
     implementation "com.xwray:groupie:2.3.0"
@@ -94,7 +94,7 @@ dependencies {
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"
 
     // stetho
-    implementation "com.facebook.stetho:stetho:1.5.0"
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 
     implementation "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
