@@ -11,14 +11,26 @@ data class ParentEMVCoItem(
         val stringBuilder = StringBuilder()
 
         stringBuilder.append("$id $length ")
+        appendChildren(stringBuilder)
+
+        return stringBuilder.toString()
+    }
+
+    private fun appendChildren(stringBuilder: StringBuilder, isGrandChild: Boolean = false) {
         children.forEachIndexed { index, item ->
             if (index == 0) {
                 stringBuilder.append("${item.id} ${item.length} ${item.payload}\n")
             } else {
-                stringBuilder.append("            ${item.id} ${item.length} ${item.payload}\n")
+                if (item is ParentEMVCoItem) {
+                    stringBuilder.append("            ${item.id} ${item.length}\n                        ")
+                    item.appendChildren(stringBuilder, true)
+                } else {
+                    if (isGrandChild) {
+                        stringBuilder.append("            ")
+                    }
+                    stringBuilder.append("            ${item.id} ${item.length} ${item.payload}\n")
+                }
             }
         }
-
-        return stringBuilder.toString()
     }
 }
