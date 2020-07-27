@@ -1,6 +1,7 @@
 package io.github.a2kaido.barcode.reader.domain.model
 
 import android.net.Uri
+import io.github.a2kaido.emvco.cpm.EMVCoCpmParser
 import io.github.a2kaido.emvco.parseEMVCo
 import java.io.Serializable
 import java.util.*
@@ -35,6 +36,13 @@ data class EMVCoBarcode(
     override val date: Date
 ) : BarcodeData()
 
+data class EMVCoCPMBarcode(
+    override val id: Long? = null,
+    override val code: String,
+    override val format: BarcodeFormat,
+    override val date: Date
+) : BarcodeData()
+
 class BarcodeFactory {
     companion object {
         fun create(text: String, format: BarcodeFormat): BarcodeData {
@@ -48,6 +56,10 @@ class BarcodeFactory {
 
             if (isEMVCo(text)) {
                 return EMVCoBarcode(code = text, format = format, date = Date())
+            }
+
+            if (isEMVCoCPM(text)) {
+                return EMVCoCPMBarcode(code = text, format = format, date = Date())
             }
 
             return RawDataBarcode(code = text, format = format, date = Date())
@@ -67,6 +79,13 @@ private fun isWifi(text: String): Boolean {
 
 private fun isEMVCo(text: String): Boolean = try {
     parseEMVCo(text)
+    true
+} catch (e: Exception) {
+    false
+}
+
+private fun isEMVCoCPM(text: String): Boolean = try {
+    EMVCoCpmParser().parse(text)
     true
 } catch (e: Exception) {
     false

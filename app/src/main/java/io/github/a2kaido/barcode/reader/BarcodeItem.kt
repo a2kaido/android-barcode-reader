@@ -22,7 +22,10 @@ class BarcodeItem(private val viewModel: HistoryViewModel, private val barcode: 
                 viewHolder.itemView.context.getString(R.string.barcode_type_wifi)
             }
             is EMVCoBarcode -> {
-                viewHolder.itemView.context.getString(R.string.barcode_type_emvco)
+                viewHolder.itemView.context.getString(R.string.barcode_type_emvco_mpm)
+            }
+            is EMVCoCPMBarcode -> {
+                viewHolder.itemView.context.getString(R.string.barcode_type_emvco_cpm)
             }
         }
         viewHolder.item_barcode_format.text = barcode.format.name
