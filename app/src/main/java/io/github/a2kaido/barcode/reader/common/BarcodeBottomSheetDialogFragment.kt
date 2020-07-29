@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.github.a2kaido.barcode.reader.R
 import io.github.a2kaido.barcode.reader.domain.model.*
+import io.github.a2kaido.emvco.cpm.EMVCoCpmDecoder
 import io.github.a2kaido.emvco.cpm.EMVCoCpmParser
 import io.github.a2kaido.emvco.parseEMVCoText
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
@@ -21,6 +22,10 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private val parser: EMVCoCpmParser by lazy {
         EMVCoCpmParser()
+    }
+
+    private val decoder: EMVCoCpmDecoder by lazy {
+        EMVCoCpmDecoder()
     }
 
     companion object {
@@ -68,7 +73,7 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 is EMVCoCPMBarcode -> {
                     bottom_sheet_positive_button.visibility = View.GONE
 
-                    val result = parser.parse(barcode.code)
+                    val result = parser.parse(decoder.decode(barcode.code))
                     val stringBuilder = StringBuilder()
                     result.forEach {
                         stringBuilder.append(it.getText())

@@ -1,6 +1,7 @@
 package io.github.a2kaido.barcode.reader.domain.model
 
 import android.net.Uri
+import io.github.a2kaido.emvco.cpm.EMVCoCpmDecoder
 import io.github.a2kaido.emvco.cpm.EMVCoCpmParser
 import io.github.a2kaido.emvco.parseEMVCo
 import java.io.Serializable
@@ -85,7 +86,7 @@ private fun isEMVCo(text: String): Boolean = try {
 }
 
 private fun isEMVCoCPM(text: String): Boolean = try {
-    EMVCoCpmParser().parse(text)
+    EMVCoCpmParser().parse(EMVCoCpmDecoder().decode(text))
     true
 } catch (e: Exception) {
     false
