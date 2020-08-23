@@ -21,7 +21,7 @@ class SettingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
-    val manager: ReviewManager by lazy {
+    private val manager: ReviewManager by lazy {
         ReviewManagerFactory.create(requireContext())
     }
 
