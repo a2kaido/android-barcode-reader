@@ -9,6 +9,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.github.a2kaido.barcode.reader.R
 import io.github.a2kaido.barcode.reader.domain.model.*
+import io.github.a2kaido.emvco.cpm.EMVCoCpmDecoder
+import io.github.a2kaido.emvco.cpm.EMVCoCpmParser
 import io.github.a2kaido.emvco.parseEMVCoText
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 
@@ -16,6 +18,14 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private enum class Args {
         BARCODE
+    }
+
+    private val parser: EMVCoCpmParser by lazy {
+        EMVCoCpmParser()
+    }
+
+    private val decoder: EMVCoCpmDecoder by lazy {
+        EMVCoCpmDecoder()
     }
 
     companion object {
@@ -36,7 +46,8 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 is UrlBarcode -> getString(R.string.barcode_type_url)
                 is RawDataBarcode -> getString(R.string.barcode_type_raw)
                 is WifiBarcode -> getString(R.string.barcode_type_wifi)
-                is EMVCoBarcode -> getString(R.string.barcode_type_emvco)
+                is EMVCoBarcode -> getString(R.string.barcode_type_emvco_mpm)
+                is EMVCoCPMBarcode -> getString(R.string.barcode_type_emvco_cpm)
             }
             bottom_sheet_barcode_format.text = barcode.format.name
             bottom_sheet_text.text = barcode.code
@@ -58,7 +69,17 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 }
                 is EMVCoBarcode -> {
                     bottom_sheet_positive_button.visibility = View.GONE
-                    bottom_sheet_text.text = parseEMVCoText(barcode.code)
+                    bottom_sheet_text.text = parseEMVCoText(barcode.code)                }
+                is EMVCoCPMBarcode -> {
+                    bottom_sheet_positive_button.visibility = View.GONE
+
+                    val result = parser.parse(decoder.decode(barcode.code))
+                    val stringBuilder = StringBuilder()
+                    result.forEach {
+                        stringBuilder.append(it.getText())
+                    }
+
+                    bottom_sheet_text.text = stringBuilder.toString()
                 }
             }
             share.setOnClickListener {

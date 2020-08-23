@@ -20,6 +20,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
                 is RawDataBarcode -> BarcodeType.RAW_DATA
                 is WifiBarcode -> BarcodeType.WIFI
                 is EMVCoBarcode -> BarcodeType.EMVCo
+                is EMVCoCPMBarcode -> BarcodeType.EMVCoCPM
             }
         )
         database.barcodeDao.insertBarcode(barcodeEntity)
@@ -33,6 +34,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
                     is RawDataBarcode -> BarcodeType.RAW_DATA
                     is WifiBarcode -> BarcodeType.WIFI
                     is EMVCoBarcode -> BarcodeType.EMVCo
+                    is EMVCoCPMBarcode -> BarcodeType.EMVCoCPM
                 }
             )
         )
@@ -46,6 +48,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
                     BarcodeType.RAW_DATA -> RawDataBarcode(it.id, it.code, it.format, it.date)
                     BarcodeType.WIFI -> WifiBarcode(it.id, it.code, it.format, it.date)
                     BarcodeType.EMVCo -> EMVCoBarcode(it.id, it.code, it.format, it.date)
+                    BarcodeType.EMVCoCPM -> EMVCoCPMBarcode(it.id, it.code, it.format, it.date)
                 }
             }.toList()
         }

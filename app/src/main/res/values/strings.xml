@@ -10,7 +10,8 @@
     <string name="barcode_type_url">URL</string>
     <string name="barcode_type_raw">RAW DATA</string>
     <string name="barcode_type_wifi">WIFI</string>
-    <string name="barcode_type_emvco">EMVCo</string>
+    <string name="barcode_type_emvco_mpm">EMVCo MPM</string>
+    <string name="barcode_type_emvco_cpm">EMVCo CPM</string>
     <string name="open_in_browser">Open in Browser</string>
     <string name="delete_barcode_alert_dialog_message">Do you want to delete it?</string>
     <string name="delete">Delete</string>

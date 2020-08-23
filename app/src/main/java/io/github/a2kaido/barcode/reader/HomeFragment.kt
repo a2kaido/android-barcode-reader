@@ -18,7 +18,11 @@ import io.github.a2kaido.barcode.reader.mapper.toDomain
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import permissions.dispatcher.*
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.OnNeverAskAgain
+import permissions.dispatcher.OnPermissionDenied
+import permissions.dispatcher.PermissionUtils
+import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
 class HomeFragment : Fragment() {
