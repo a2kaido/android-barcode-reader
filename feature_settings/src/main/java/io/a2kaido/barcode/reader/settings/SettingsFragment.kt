@@ -1,22 +1,25 @@
-package io.github.a2kaido.barcode.reader
+package io.a2kaido.barcode.reader.settings
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import kotlinx.android.synthetic.main.fragment_settings.*
+import io.a2kaido.barcode.reader.R
+import io.a2kaido.barcode.reader.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
+
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater)
+        return binding.root
     }
 
 //    private val manager: ReviewManager by lazy {
@@ -28,10 +31,10 @@ class SettingsFragment : Fragment() {
 
         requireActivity().title = getString(R.string.settings_title)
 
-        oss_license.setOnClickListener {
-            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
-                putExtra("title", getString(R.string.oss_license))
-            })
+        binding.ossLicense.setOnClickListener {
+            OssLicensesMenuIntentBuilder.buildIntent?.invoke(requireContext(), getString(R.string.oss_license))?.run {
+                startActivity(this)
+            }
         }
 
 //        review.setOnClickListener {
