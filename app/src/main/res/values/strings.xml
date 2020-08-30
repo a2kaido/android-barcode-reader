@@ -7,21 +7,10 @@
     <string name="scan">Scan</string>
     <string name="history">History</string>
     <string name="settings">Settings</string>
-    <string name="barcode_type_url">URL</string>
-    <string name="barcode_type_raw">RAW DATA</string>
-    <string name="barcode_type_wifi">WIFI</string>
-    <string name="barcode_type_emvco_mpm">EMVCo MPM</string>
-    <string name="barcode_type_emvco_cpm">EMVCo CPM</string>
-    <string name="open_in_browser">Open in Browser</string>
-    <string name="delete_barcode_alert_dialog_message">Do you want to delete it?</string>
-    <string name="delete">Delete</string>
-    <string name="close">Close</string>
-    <string name="cancel">Cancel</string>
     <string name="qr_code">QR CODE</string>
     <string name="code_128">CODE 128</string>
     <string name="review">Write review for this app</string>
     <string name="history_empty_text">scan history is empty.</string>
     <string name="no_camera_permission_text">To scan barcode, please permit camera access.</string>
     <string name="scan_title">Scan</string>
-    <string name="scan_history_title">Scan History</string>
 </resources>

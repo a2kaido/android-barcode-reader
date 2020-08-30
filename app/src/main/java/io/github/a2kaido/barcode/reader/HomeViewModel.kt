@@ -3,6 +3,7 @@ package io.github.a2kaido.barcode.reader
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.a2kaido.barcode.reader.ui.common.Event
 import io.github.a2kaido.barcode.reader.domain.BarcodeUseCaseInterface
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeFactory

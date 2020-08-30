@@ -1,4 +1,4 @@
-package io.github.a2kaido.barcode.reader.common
+package io.a2kaido.barcode.reader.ui.common
 
 import android.app.Dialog
 import android.content.Intent
@@ -7,12 +7,16 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.github.a2kaido.barcode.reader.R
-import io.github.a2kaido.barcode.reader.domain.model.*
+import io.a2kaido.barcode.reader.ui.common.databinding.BottomSheetDialogBarcodeBinding
+import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
+import io.github.a2kaido.barcode.reader.domain.model.EMVCoBarcode
+import io.github.a2kaido.barcode.reader.domain.model.EMVCoCPMBarcode
+import io.github.a2kaido.barcode.reader.domain.model.RawDataBarcode
+import io.github.a2kaido.barcode.reader.domain.model.UrlBarcode
+import io.github.a2kaido.barcode.reader.domain.model.WifiBarcode
 import io.github.a2kaido.emvco.cpm.EMVCoCpmDecoder
 import io.github.a2kaido.emvco.cpm.EMVCoCpmParser
 import io.github.a2kaido.emvco.parseEMVCoText
-import kotlinx.android.synthetic.main.bottom_sheet_dialog_barcode.*
 
 class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
@@ -40,21 +44,22 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val barcode = requireNotNull(arguments?.getSerializable(Args.BARCODE.name) as? BarcodeData)
 
         return BottomSheetDialog(requireContext()).apply {
-            setContentView(R.layout.bottom_sheet_dialog_barcode)
+            val binding = BottomSheetDialogBarcodeBinding.inflate(requireActivity().layoutInflater)
+            setContentView(binding.root)
 
-            bottom_sheet_barcode_type.text = when (barcode) {
+            binding.bottomSheetBarcodeType.text = when (barcode) {
                 is UrlBarcode -> getString(R.string.barcode_type_url)
                 is RawDataBarcode -> getString(R.string.barcode_type_raw)
                 is WifiBarcode -> getString(R.string.barcode_type_wifi)
                 is EMVCoBarcode -> getString(R.string.barcode_type_emvco_mpm)
                 is EMVCoCPMBarcode -> getString(R.string.barcode_type_emvco_cpm)
             }
-            bottom_sheet_barcode_format.text = barcode.format.name
-            bottom_sheet_text.text = barcode.code
+            binding.bottomSheetBarcodeFormat.text = barcode.format.name
+            binding.bottomSheetText.text = barcode.code
             when (barcode) {
                 is UrlBarcode -> {
-                    bottom_sheet_positive_button.visibility = View.VISIBLE
-                    bottom_sheet_positive_button.setOnClickListener {
+                    binding.bottomSheetPositiveButton.visibility = View.VISIBLE
+                    binding.bottomSheetPositiveButton.setOnClickListener {
                         startActivity(Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(barcode.code)
                         })
@@ -62,16 +67,17 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     }
                 }
                 is RawDataBarcode -> {
-                    bottom_sheet_positive_button.visibility = View.GONE
+                    binding.bottomSheetPositiveButton.visibility = View.GONE
                 }
                 is WifiBarcode -> {
-                    bottom_sheet_positive_button.visibility = View.GONE
+                    binding.bottomSheetPositiveButton.visibility = View.GONE
                 }
                 is EMVCoBarcode -> {
-                    bottom_sheet_positive_button.visibility = View.GONE
-                    bottom_sheet_text.text = parseEMVCoText(barcode.code)                }
+                    binding.bottomSheetPositiveButton.visibility = View.GONE
+                    binding.bottomSheetText.text = parseEMVCoText(barcode.code)
+                }
                 is EMVCoCPMBarcode -> {
-                    bottom_sheet_positive_button.visibility = View.GONE
+                    binding.bottomSheetPositiveButton.visibility = View.GONE
 
                     val result = parser.parse(decoder.decode(barcode.code))
                     val stringBuilder = StringBuilder()
@@ -79,17 +85,17 @@ class BarcodeBottomSheetDialogFragment : BottomSheetDialogFragment() {
                         stringBuilder.append(it.getText())
                     }
 
-                    bottom_sheet_text.text = stringBuilder.toString()
+                    binding.bottomSheetText.text = stringBuilder.toString()
                 }
             }
-            share.setOnClickListener {
+            binding.share.setOnClickListener {
                 val sendIntent = Intent()
                 sendIntent.action = Intent.ACTION_SEND
-                sendIntent.putExtra(Intent.EXTRA_TEXT, bottom_sheet_text.text.toString())
+                sendIntent.putExtra(Intent.EXTRA_TEXT, binding.bottomSheetText.text.toString())
                 sendIntent.type = "text/plain"
                 startActivity(Intent.createChooser(sendIntent, "Share Code"))
             }
-            bottom_sheet_negative_button.setOnClickListener {
+            binding.bottomSheetNegativeButton.setOnClickListener {
                 dismiss()
             }
         }

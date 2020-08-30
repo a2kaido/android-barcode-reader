@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HistoryFragment">
+    tools:context="io.a2kaido.barcode.reader.history.HistoryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/history_constraint_layout"

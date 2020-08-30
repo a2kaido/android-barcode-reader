@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="io.github.a2kaido.barcode.reader.HistoryFragment"
+        android:name="io.a2kaido.barcode.reader.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment

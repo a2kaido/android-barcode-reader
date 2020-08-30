@@ -1,4 +1,4 @@
-package io.github.a2kaido.barcode.reader
+package io.a2kaido.barcode.reader.ui.common
 
 class Event<out T>(private val content: T) {
 

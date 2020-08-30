@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delete">Delete</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="open_in_browser">Open in Browser</string>
+
+    <string name="barcode_type_url">URL</string>
+    <string name="barcode_type_raw">RAW DATA</string>
+    <string name="barcode_type_wifi">WIFI</string>
+    <string name="barcode_type_emvco_mpm">EMVCo MPM</string>
+    <string name="barcode_type_emvco_cpm">EMVCo CPM</string>
+</resources>
