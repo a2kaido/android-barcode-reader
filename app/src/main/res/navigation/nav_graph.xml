@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="io.github.a2kaido.barcode.reader.SettingsFragment"
+        android:name="io.a2kaido.barcode.reader.settings.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/qrCodeFactoryFragment"
