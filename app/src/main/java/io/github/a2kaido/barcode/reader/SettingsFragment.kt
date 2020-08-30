@@ -19,6 +19,10 @@ class SettingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
+//    private val manager: ReviewManager by lazy {
+//        ReviewManagerFactory.create(requireContext())
+//    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -29,5 +33,18 @@ class SettingsFragment : Fragment() {
                 putExtra("title", getString(R.string.oss_license))
             })
         }
+
+//        review.setOnClickListener {
+//            val flow = manager.requestReviewFlow()
+//            flow.addOnCompleteListener { request ->
+//                if (request.isSuccessful) {
+//                    val reviewInfo = request.result
+//                    val reviewFlow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+//                    reviewFlow.addOnCompleteListener {
+//                        it.exception?.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
     }
 }

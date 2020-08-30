@@ -20,6 +20,7 @@
     <string name="qr_code">QR CODE</string>
     <string name="code_128">CODE 128</string>
     <string name="oss_license">Open Source Software License</string>
+    <string name="review">Write review for this app</string>
     <string name="history_empty_text">scan history is empty.</string>
     <string name="no_camera_permission_text">To scan barcode, please permit camera access.</string>
     <string name="scan_title">Scan</string>
