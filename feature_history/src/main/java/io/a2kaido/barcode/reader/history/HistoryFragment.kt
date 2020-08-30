@@ -1,4 +1,4 @@
-package io.github.a2kaido.barcode.reader
+package io.a2kaido.barcode.reader.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import io.github.a2kaido.barcode.reader.common.BarcodeBottomSheetDialogFragment
-import io.github.a2kaido.barcode.reader.common.observeNonNull
-import kotlinx.android.synthetic.main.fragment_history.*
+import com.xwray.groupie.GroupieViewHolder
+import io.a2kaido.barcode.reader.history.databinding.FragmentHistoryBinding
+import io.a2kaido.barcode.reader.ui.common.BarcodeBottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment() {
+
+    private var _binding: FragmentHistoryBinding? = null
+    private val binding: FragmentHistoryBinding get() = _binding!!
 
     private val viewModel: HistoryViewModel by viewModel()
 
@@ -23,7 +25,8 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        _binding = FragmentHistoryBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,29 +34,29 @@ class HistoryFragment : Fragment() {
 
         requireActivity().title = getString(R.string.scan_history_title)
 
-        history_recycler_view.layoutManager =
+        binding.historyRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         viewModel.barcodeList.observeNonNull(this) { barcodeList ->
             if (barcodeList.isEmpty()) {
-                history_recycler_view.visibility = View.GONE
-                empty_view.visibility = View.VISIBLE
+                binding.historyRecyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
                 return@observeNonNull
             }
 
-            history_recycler_view.visibility = View.VISIBLE
-            empty_view.visibility = View.GONE
-            val adapter = GroupAdapter<ViewHolder>()
+            binding.historyRecyclerView.visibility = View.VISIBLE
+            binding.emptyView.visibility = View.GONE
+            val adapter = GroupAdapter<GroupieViewHolder>()
             adapter.addAll(barcodeList.asSequence().map {
                 BarcodeItem(viewModel, it)
             }.toList())
-            history_recycler_view.adapter = adapter
+            binding.historyRecyclerView.adapter = adapter
         }
 
         viewModel.onClickHistoryItemEvent.observeNonNull(this) {
             it.consume()?.let { barcode ->
                 BarcodeBottomSheetDialogFragment.newInstance(barcode)
-                    .show(requireFragmentManager(), null)
+                    .show(parentFragmentManager, null)
             }
         }
 
@@ -74,5 +77,10 @@ class HistoryFragment : Fragment() {
 //                setContentView(R.layout.bottom_sheet_dialog_filter)
 //            }.show()
 //        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

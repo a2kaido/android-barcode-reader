@@ -1,3 +1,4 @@
 include ':ui_common'
+include ':feature_history'
 include ':feature_settings'
 include ':app', ':domain', ':data', ':emvco'

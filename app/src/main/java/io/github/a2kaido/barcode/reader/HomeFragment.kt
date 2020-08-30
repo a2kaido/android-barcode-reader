@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import io.github.a2kaido.barcode.reader.common.BarcodeBottomSheetDialogFragment
+import io.a2kaido.barcode.reader.ui.common.BarcodeBottomSheetDialogFragment
 import io.github.a2kaido.barcode.reader.mapper.toDomain
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
@@ -50,12 +50,12 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        viewModel.barcodeCreated.observe(this, Observer {
+        viewModel.barcodeCreated.observe(viewLifecycleOwner) {
             it?.consume()?.let { barcode ->
                 BarcodeBottomSheetDialogFragment.newInstance(barcode)
-                    .show(requireFragmentManager(), null)
+                    .show(parentFragmentManager, null)
             }
-        })
+        }
 
         decorated_barcode_view.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {

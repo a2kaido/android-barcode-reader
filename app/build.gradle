@@ -55,6 +55,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":data")
     implementation project(":emvco")
+    implementation project(":feature_history")
     implementation project(":feature_settings")
     implementation project(":ui_common")
 
@@ -69,6 +70,7 @@ dependencies {
 
     // support
     implementation "androidx.appcompat:appcompat:1.3.0-alpha02"
+    implementation "com.google.android.material:material:1.2.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.1"
 
     // nav
@@ -87,8 +89,8 @@ dependencies {
     implementation 'com.google.zxing:core:3.4.0'
 
     // groupie
-    implementation "com.xwray:groupie:2.3.0"
-    implementation "com.xwray:groupie-kotlin-android-extensions:2.3.0"
+    implementation "com.xwray:groupie:2.8.1"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.1"
 
     // permission dispatcher
     def permission_dispatcher_version = "4.3.0"

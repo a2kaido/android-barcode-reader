@@ -1,11 +1,17 @@
-package io.github.a2kaido.barcode.reader
+package io.a2kaido.barcode.reader.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.a2kaido.barcode.reader.ui.common.Event
 import io.github.a2kaido.barcode.reader.domain.BarcodeUseCaseInterface
 import io.github.a2kaido.barcode.reader.domain.model.BarcodeData
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class HistoryViewModel(

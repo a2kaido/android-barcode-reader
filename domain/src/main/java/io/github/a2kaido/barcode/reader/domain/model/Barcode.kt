@@ -86,8 +86,8 @@ private fun isEMVCo(text: String): Boolean = try {
 }
 
 private fun isEMVCoCPM(text: String): Boolean = try {
-    EMVCoCpmParser().parse(EMVCoCpmDecoder().decode(text))
-    true
+    val parseResult = EMVCoCpmParser().parse(EMVCoCpmDecoder().decode(text))
+    parseResult.isNotEmpty()
 } catch (e: Exception) {
     false
 }

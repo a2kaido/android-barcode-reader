@@ -11,4 +11,10 @@ class EMVCoCpmParserTest {
             println(it.getText())
         }
     }
+
+    @Test
+    fun `parse non cpm emvco`() {
+        val result = EMVCoCpmParser().parse("ほげ")
+        println(result)
+    }
 }
