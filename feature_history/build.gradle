@@ -2,13 +2,19 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion 25
+        targetSdkVersion 34
         resConfigs "ja", "en"
     }
     buildFeatures.viewBinding true
+    namespace 'io.a2kaido.barcode.reader.history'
+
+    compileOptions {
+        sourceCompatibility = 17
+        targetCompatibility = 17
+    }
 }
 
 dependencies {

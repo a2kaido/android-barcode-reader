@@ -10,16 +10,19 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import kotlinx.android.synthetic.main.fragment_qr_code_factory.*
+import io.github.a2kaido.barcode.reader.databinding.FragmentQrCodeFactoryBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.EnumMap
 
 class QrCodeFactoryFragment : Fragment() {
 
+    private var _binding: FragmentQrCodeFactoryBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: QrCodeFactoryViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_qr_code_factory, container, false)
+        _binding = FragmentQrCodeFactoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +30,7 @@ class QrCodeFactoryFragment : Fragment() {
 
         val args = arguments
         requireNotNull(args)
-        code.text = QrCodeFactoryFragmentArgs.fromBundle(args).value
+        binding.code.text = QrCodeFactoryFragmentArgs.fromBundle(args).value
 
         viewModel.barcode.observe(this, Observer {
             val hints = EnumMap<EncodeHintType, Any>(EncodeHintType::class.java)
@@ -36,10 +39,15 @@ class QrCodeFactoryFragment : Fragment() {
             hints[EncodeHintType.MARGIN] = 4
 
             val encoder = BarcodeEncoder()
-            val bitmap = encoder.encodeBitmap(it, BarcodeFormat.QR_CODE, qr_code.width, qr_code.height, hints)
-            qr_code.setImageBitmap(bitmap)
+            val bitmap = encoder.encodeBitmap(it, BarcodeFormat.QR_CODE, binding.qrCode.width, binding.qrCode.height, hints)
+            binding.qrCode.setImageBitmap(bitmap)
         })
 
-        viewModel.setBarcode(code.text.toString())
+        viewModel.setBarcode(binding.code.text.toString())
+    }
+
+    override fun onDestroyView(){
+        super.onDestroyView()
+        _binding = null
     }
 }

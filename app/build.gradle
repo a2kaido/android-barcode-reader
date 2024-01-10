@@ -4,22 +4,20 @@ apply plugin: "kotlin-android"
 
 apply plugin: "kotlin-kapt"
 
-apply plugin: "kotlin-android-extensions"
-
 apply plugin: "androidx.navigation.safeargs"
 
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 def major = 1
-def minor = 2
-def revision = 1
+def minor = 3
+def revision = 0
 
 android {
-    compileSdkVersion 29
+    compileSdk 34
     defaultConfig {
         applicationId "io.github.a2kaido.barcode.reader"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion 25
+        targetSdkVersion 34
         versionCode major * 10000 + minor * 100 + revision
         versionName "$major.$minor.$revision"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,8 +44,15 @@ android {
             enableSplit = true
         }
     }
-    androidExtensions {
-        experimental = true
+    namespace 'io.github.a2kaido.barcode.reader'
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility = 17
+        targetCompatibility = 17
     }
 }
 
@@ -74,12 +79,12 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.1"
 
     // nav
-    def nav_version = "1.0.0"
-    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+    def nav_version = "2.7.6"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // room
-    def room_version = "2.3.0-alpha02"
+    def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-coroutines:2.1.0-alpha04"
@@ -90,12 +95,12 @@ dependencies {
 
     // groupie
     implementation "com.xwray:groupie:2.8.1"
-    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.1"
+    implementation "com.xwray:groupie-viewbinding:2.8.1"
 
     // permission dispatcher
-    def permission_dispatcher_version = "4.3.0"
-    implementation "org.permissionsdispatcher:permissionsdispatcher:${permission_dispatcher_version}"
-    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"
+    def permission_dispatcher_version = "4.9.2"
+    implementation "com.github.permissions-dispatcher:permissionsdispatcher:${permission_dispatcher_version}"
+    kapt "com.github.permissions-dispatcher:permissionsdispatcher-processor:${permission_dispatcher_version}"
 
     // stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'

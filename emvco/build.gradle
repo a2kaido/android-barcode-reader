@@ -2,9 +2,15 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    compileSdkVersion 29
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 25
+    }
+    namespace 'io.github.a2kaido.emvco'
+
+    compileOptions {
+        sourceCompatibility = 17
+        targetCompatibility = 17
     }
 }
 

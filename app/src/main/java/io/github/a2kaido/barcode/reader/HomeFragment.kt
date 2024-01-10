@@ -14,9 +14,8 @@ import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import io.a2kaido.barcode.reader.ui.common.BarcodeBottomSheetDialogFragment
+import io.github.a2kaido.barcode.reader.databinding.FragmentHomeBinding
 import io.github.a2kaido.barcode.reader.mapper.toDomain
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.merge_no_camera_permission_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnNeverAskAgain
@@ -27,14 +26,17 @@ import permissions.dispatcher.RuntimePermissions
 @RuntimePermissions
 class HomeFragment : Fragment() {
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class HomeFragment : Fragment() {
 
         requireActivity().title = getString(R.string.scan_title)
 
-        open_settings.setOnClickListener {
+        binding.noCameraPermission.openSettings.setOnClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
@@ -57,10 +59,10 @@ class HomeFragment : Fragment() {
             }
         }
 
-        decorated_barcode_view.decodeContinuous(object : BarcodeCallback {
+        binding.decoratedBarcodeView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let { barcodeResult ->
-                    decorated_barcode_view?.pause()
+                    _binding?.decoratedBarcodeView?.pause()
                     viewModel.scannedBarcode(
                         barcodeResult.text,
                         barcodeResult.barcodeFormat.toDomain()
@@ -94,26 +96,31 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        decorated_barcode_view.pause()
+        binding.decoratedBarcodeView.pause()
     }
 
     @NeedsPermission(Manifest.permission.CAMERA)
     fun resumeCamera() {
-        decorated_barcode_view.visibility = View.VISIBLE
-        decorated_barcode_view.resume()
-        no_camera_permission.visibility = View.GONE
+        binding.decoratedBarcodeView.visibility = View.VISIBLE
+        binding.decoratedBarcodeView.resume()
+        binding.noCameraPermission.root.visibility = View.GONE
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
     fun onCameraDenied() {
-        decorated_barcode_view.visibility = View.GONE
-        no_camera_permission.visibility = View.VISIBLE
+        binding.decoratedBarcodeView.visibility = View.GONE
+        binding.noCameraPermission.root.visibility = View.VISIBLE
     }
 
     @OnNeverAskAgain(Manifest.permission.CAMERA)
     fun onCameraNeverAskAgain() {
-        decorated_barcode_view.visibility = View.GONE
-        no_camera_permission.visibility = View.VISIBLE
+        binding.decoratedBarcodeView.visibility = View.GONE
+        binding.noCameraPermission.root.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView(){
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onRequestPermissionsResult(
