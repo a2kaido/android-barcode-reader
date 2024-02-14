@@ -58,6 +58,36 @@
             android:text="@string/oss_license" />
     </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/privacy_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:foreground="?android:selectableItemBackground"
+            android:minHeight="56dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oss_license"
+            tools:ignore="UnusedAttribute">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/privacy_policy"
+                android:src="@drawable/ic_description" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/privacy_policy" />
+    </LinearLayout>
+
 <!--    <LinearLayout-->
 <!--            android:id="@+id/review"-->
 <!--            android:layout_width="match_parent"-->

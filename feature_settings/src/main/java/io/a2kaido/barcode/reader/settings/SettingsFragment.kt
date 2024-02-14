@@ -1,9 +1,12 @@
 package io.a2kaido.barcode.reader.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import io.a2kaido.barcode.reader.R
 import io.a2kaido.barcode.reader.databinding.FragmentSettingsBinding
@@ -35,6 +38,12 @@ class SettingsFragment : Fragment() {
             OssLicensesMenuIntentBuilder.buildIntent?.invoke(requireContext(), getString(R.string.oss_license))?.run {
                 startActivity(this)
             }
+        }
+
+        binding.privacyPolicy.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = "https://barcode-capture.web.app/".toUri()
+            })
         }
 
 //        review.setOnClickListener {
