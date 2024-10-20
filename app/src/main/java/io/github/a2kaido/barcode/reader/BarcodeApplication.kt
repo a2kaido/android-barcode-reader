@@ -6,7 +6,8 @@ import com.facebook.stetho.Stetho
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.a2kaido.barcode.reader.settings.OssLicensesMenuIntentBuilder
 import io.github.a2kaido.barcode.reader.di.myModule
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 @Suppress("unused")
 class BarcodeApplication : Application() {
@@ -14,7 +15,10 @@ class BarcodeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin(this, listOf(myModule))
+        startKoin {
+            androidContext(this@BarcodeApplication)
+            modules(myModule)
+        }
 
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)

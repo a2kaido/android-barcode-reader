@@ -1,7 +1,7 @@
 package io.github.a2kaido.barcode.reader.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import io.github.a2kaido.barcode.reader.data.room.BarcodeDatabase
 import io.github.a2kaido.barcode.reader.data.room.BarcodeEntity
 import io.github.a2kaido.barcode.reader.data.room.BarcodeType
@@ -41,7 +41,7 @@ class BarcodeRepository(private val database: BarcodeDatabase) : BarcodeReposito
     }
 
     override fun getBarcodes(): LiveData<List<BarcodeData>> =
-        Transformations.map(database.barcodeDao.selectBarcodes()) { barcodeList ->
+        database.barcodeDao.selectBarcodes().map { barcodeList ->
             barcodeList.asSequence().map {
                 when (it.type) {
                     BarcodeType.URL -> UrlBarcode(it.id, it.code, it.format, it.date)
