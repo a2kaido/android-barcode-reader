@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         minSdkVersion 25
-        targetSdkVersion 34
+        targetSdkVersion 35
         resConfigs "ja", "en"
     }
     buildFeatures.viewBinding true
@@ -19,8 +19,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = 17
-        targetCompatibility = 17
+        sourceCompatibility = 21
+        targetCompatibility = 21
     }
 }
 

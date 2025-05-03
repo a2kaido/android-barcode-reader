@@ -51,7 +51,7 @@ class SettingsFragment : Fragment() {
             setContent {
                 MaterialTheme {
                     SettingsScreen(
-                        versionName = versionName,
+                        versionName = versionName.orEmpty(),
                         onClickOssLicense = {
                             OssLicensesMenuIntentBuilder.buildIntent?.invoke(
                                 requireContext(),

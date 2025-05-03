@@ -3,6 +3,9 @@ package io.github.a2kaido.barcode.reader
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        optimizeEdgeToEdge()
 
         val navController = findNavController(R.id.main_fragment)
         binding.bottomNav.setupWithNavController(navController)
@@ -69,6 +73,23 @@ class MainActivity : AppCompatActivity() {
                     NavOptions.Builder().setLaunchSingleTop(true).build()
                 )
             }
+        }
+    }
+
+    private fun optimizeEdgeToEdge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            val insets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                        WindowInsetsCompat.Type.displayCutout(),
+            )
+
+            binding.toolbar.updatePadding(
+                top = insets.top,
+                left = insets.left,
+                right = insets.right,
+            )
+
+            WindowInsetsCompat.CONSUMED
         }
     }
 }

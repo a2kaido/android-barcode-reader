@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace 'io.github.a2kaido.barcode.reader.domain'
 
     compileOptions {
-        sourceCompatibility = 17
-        targetCompatibility = 17
+        sourceCompatibility = 21
+        targetCompatibility = 21
     }
 }
 

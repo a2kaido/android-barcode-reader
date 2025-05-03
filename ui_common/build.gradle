@@ -2,18 +2,18 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         resConfigs "ja", "en"
     }
     buildFeatures.viewBinding true
     namespace 'io.a2kaido.barcode.reader.ui.common'
 
     compileOptions {
-        sourceCompatibility = 17
-        targetCompatibility = 17
+        sourceCompatibility = 21
+        targetCompatibility = 21
     }
 }
 
