@@ -2,6 +2,7 @@ package io.github.a2kaido.barcode.reader
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,10 +20,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        optimizeEdgeToEdge()
+        setupWindowInsets()
 
         val navController = findNavController(R.id.main_fragment)
         binding.bottomNav.setupWithNavController(navController)
@@ -76,20 +78,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun optimizeEdgeToEdge() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+    private fun setupWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
             val insets = windowInsets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or
-                        WindowInsetsCompat.Type.displayCutout(),
+                        WindowInsetsCompat.Type.displayCutout()
             )
 
             binding.toolbar.updatePadding(
                 top = insets.top,
                 left = insets.left,
-                right = insets.right,
+                right = insets.right
             )
 
-            WindowInsetsCompat.CONSUMED
+            binding.bottomNav.updatePadding(
+                bottom = insets.bottom,
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
         }
     }
 }
