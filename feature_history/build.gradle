@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 35
+    compileSdk 37
     defaultConfig {
         minSdkVersion 25
-        targetSdkVersion 35
+        targetSdkVersion 37
         resConfigs "ja", "en"
     }
     buildFeatures.viewBinding true

@@ -13,15 +13,15 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 def major = 1
-def minor = 5
+def minor = 6
 def revision = 0
 
 android {
-    compileSdk 35
+    compileSdk 37
     defaultConfig {
         applicationId "io.github.a2kaido.barcode.reader"
         minSdkVersion 25
-        targetSdkVersion 35
+        targetSdkVersion 37
         versionCode major * 10000 + minor * 100 + revision
         versionName "$major.$minor.$revision"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
